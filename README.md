@@ -26,16 +26,6 @@ Food Desert Explorer is an interactive tool that evaluates and visualizes the li
 
 ## Repository Structure
 
-food-desert-explorer/
-├── data/
-│ ├── raw/
-│ └── processed/
-├── notebooks/
-├── scripts/
-├── app/
-├── docs/
-└── README.md
-
 - **data/**: Contains raw and processed data (excluded from version control for large files).
 - **notebooks/**: Jupyter notebooks for exploratory analysis.
 - **scripts/**: Python scripts for data wrangling, cleaning, and merging.
