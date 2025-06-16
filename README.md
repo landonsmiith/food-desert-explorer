@@ -14,13 +14,33 @@ Food Desert Explorer is an interactive tool that evaluates and visualizes the li
 
 ---
 
-## Data Sources
+## Data Sources (all ran from AWS S3 pipeline to Streamlit app)
 
 - **USDA Food Access Research Atlas:** Food desert status and related indicators at the census tract level.
 - **American Community Survey (ACS) 5-Year Estimates:** Demographics, rent/cost-of-living, vehicle ownership, and transit usage by census tract.
 - **EPA Smart Location Database:** National walkability and smart growth indicators.
 - **CDC PLACES:** Local health data related to nutrition and chronic disease risk factors.
 - **National Walkability Index (NWI):** Walkability scores derived from national transportation data.
+
+---
+
+## Repository Structure
+
+food-desert-explorer/
+├── data/
+│ ├── raw/
+│ └── processed/
+├── notebooks/
+├── scripts/
+├── app/
+├── docs/
+└── README.md
+
+- **data/**: Contains raw and processed data (excluded from version control for large files).
+- **notebooks/**: Jupyter notebooks for exploratory analysis.
+- **scripts/**: Python scripts for data wrangling, cleaning, and merging.
+- **app/**: Streamlit application code.
+- **docs/**: Documentation, including data dictionaries and methodology.
 
 ---
 
