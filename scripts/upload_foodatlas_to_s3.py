@@ -1,18 +1,21 @@
 import boto3
 import os
 
-def upload_file_to_s3(local_file, bucket_name, s3_key):
-    s3 = boto3.client('s3')
-    print(f"Uploading {local_file} to s3://{bucket_name}/{s3_key} ...")
-    s3.upload_file(local_file, bucket_name, s3_key)
-    print("Upload complete.")
+# --- CONFIGURATION ---
+BUCKET_NAME = "fooddesertsources"   
+LOCAL_FOLDER = "data/raw"         
+S3_PREFIX = "raw/"                
 
-if __name__ == "__main__":
-    LOCAL_FILE = os.path.join("data", "raw", "FoodAccessAtlasData.xlsx")
-    BUCKET_NAME = "fooddesertsources"
-    S3_KEY = "FoodAccessAtlas.xlsx" 
+# --- INITIALIZE S3 CLIENT ---
+s3_client = boto3.client("s3")
 
-    if os.path.exists(LOCAL_FILE):
-        upload_file_to_s3(LOCAL_FILE, BUCKET_NAME, S3_KEY)
-    else:
-        print(f"File {LOCAL_FILE} not found. Please check the path.")
+# --- UPLOAD ALL FOOD ATLAS FILES ---
+for filename in os.listdir(LOCAL_FOLDER):
+    if filename.startswith("Food"):
+        local_path = os.path.join(LOCAL_FOLDER, filename)
+        s3_key = f"{S3_PREFIX}{filename}"
+        try:
+            s3_client.upload_file(local_path, BUCKET_NAME, s3_key)
+            print(f"Uploaded {local_path} to s3://{BUCKET_NAME}/{s3_key}")
+        except Exception as e:
+            print(f"Failed to upload {filename}: {e}")
