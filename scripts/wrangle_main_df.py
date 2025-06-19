@@ -42,10 +42,9 @@ sum_cols = [
     'Residents', 'Drivers', 'Vehicles', 'White', 'Male', 'Lowwage', 'Medwage',
     'Highwage', 'Annual_GHG', 'C_R_Households', 'C_R_Pop', 'C_R_Workers',
     'C_R_Drivers', 'C_R_Vehicles', 'C_R_White', 'C_R_Male', 'C_R_Lowwage',
-    'C_R_Medwage', 'C_R_Highwage', 'VMT_tot_min', 'VMT_tot_max', 'VMT_tot_avg',
+    'C_R_Medwage', 'C_R_Highwage',
     'Ac_Total_walk', 'Ac_Water_walk', 'Ac_Land_walk', 'Ac_Unpr_walk', 'TotPop_walk',
-    'CountHU_walk', 'HH_walk', 'Workers_walk', 'Shape_Length_smart',
-    'Shape_Area_smart', 'Shape_Length_walk', 'Shape_Area_walk'
+    'CountHU_walk', 'HH_walk', 'Workers_walk'
 ]
 
 avg_cols = [
@@ -69,11 +68,17 @@ avg_cols = [
     'B_N_ld1a', 'B_N_ld1c', 'B_N_ld3aao', 'B_N_ld3apo', 'B_N_d4bo25', 'B_N_d5dei',
     'B_N_UPTpc', 'C_R_DrmV', 'NatWalkInd_walk', 'D2B_E8MIXA_walk',
     'D2A_EPHHM_walk', 'D3B_walk', 'D4A_walk', 'D2A_Ranked_walk', 'D2B_Ranked_walk',
-    'D3B_Ranked_walk', 'D4A_Ranked_walk'
+    'D3B_Ranked_walk', 'D4A_Ranked_walk', 'VMT_tot_avg'
 ]
 
 agg = {c: 'first' for c in explanatory_cols if c in gdb_df.columns}
 agg.update({c: 'sum' for c in sum_cols if c in gdb_df.columns})
+
+if 'VMT_tot_min' in gdb_df.columns:
+    agg['VMT_tot_min'] = 'min'
+if 'VMT_tot_max' in gdb_df.columns:
+    agg['VMT_tot_max'] = 'max'
+
 agg.update({c: 'mean' for c in avg_cols if c in gdb_df.columns})
 
 gdb_tract = gdb_df.groupby('GEOID').agg(agg).reset_index()
